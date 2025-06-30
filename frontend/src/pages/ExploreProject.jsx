@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { dummyProjects } from "../data/dummyProjects";
 
-const Explore = () => {
+const ExploreProject = () => {
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState([]);
 
@@ -53,4 +53,4 @@ const Explore = () => {
   );
 };
 
-export default Explore;
+export default ExploreProject;

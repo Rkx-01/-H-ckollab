@@ -6,7 +6,8 @@ import Layout from "./layout/Layout";
 
 // Pages
 import Landing from "./pages/Landing";
-import Explore from "./pages/ExploreProject"; // This is ExploreProjects
+import ExploreProject from "./pages/ExploreProject"; // This is ExploreProjects
+import Explore from "./pages/Explore";
 import Messages from "./pages/Messages";
 import Profile from "./pages/Profile";
 import CreateProfile from "./pages/CreateProfile";
@@ -36,7 +37,7 @@ export default function AppRoutes() {
         path="/explore-projects" // ✅ Updated path
         element={
           <Layout>
-            <Explore />
+            <ExploreProject/>
           </Layout>
         }
       />
