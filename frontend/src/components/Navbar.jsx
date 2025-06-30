@@ -33,7 +33,15 @@ export default function Navbar() {
             to="/explore-projects"
             className="text-gray-400 hover:text-white transition"
           >
-            Explore
+            Explore Projects 
+          </Link>
+
+          {/* ✅ Updated path */}
+          <Link
+            to="/explore"
+            className="text-gray-400 hover:text-white transition"
+          >
+            Explore 
           </Link>
 
           <Link

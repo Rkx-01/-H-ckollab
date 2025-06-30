@@ -6,7 +6,7 @@ import Layout from "./layout/Layout";
 
 // Pages
 import Landing from "./pages/Landing";
-import Explore from "./pages/Explore"; // This is ExploreProjects
+import Explore from "./pages/ExploreProject"; // This is ExploreProjects
 import Messages from "./pages/Messages";
 import Profile from "./pages/Profile";
 import CreateProfile from "./pages/CreateProfile";
