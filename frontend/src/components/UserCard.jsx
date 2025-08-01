@@ -1,4 +1,5 @@
 import React from "react";
+import { Send } from "lucide-react";
 
 export default function UserCard({
   id,
@@ -10,6 +11,8 @@ export default function UserCard({
   university = "",
   collaborations = 0,
   discordOrContact = "",
+  onInviteClick,
+  isCurrentUser = false,
 }) {
   const getInitials = (name) => {
     return name
@@ -80,6 +83,19 @@ export default function UserCard({
         <span>Collaborations: <span className="text-blue-400 font-semibold">{collaborations}</span></span>
         <span>ID: <span className="text-gray-500">{id?.slice(0, 6) || "-"}</span></span>
       </div>
+      
+      {/* Invite Button */}
+      {!isCurrentUser && onInviteClick && (
+        <div className="mt-4 pt-3 border-t border-gray-800">
+          <button
+            onClick={() => onInviteClick(id, name)}
+            className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold text-sm hover:opacity-90 transition-all duration-200 shadow-lg hover:shadow-xl"
+          >
+            <Send className="w-4 h-4" />
+            Invite to Collaborate
+          </button>
+        </div>
+      )}
     </div>
   );
 }

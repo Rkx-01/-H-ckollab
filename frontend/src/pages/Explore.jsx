@@ -1,13 +1,21 @@
 import { useState, useEffect, useMemo } from 'react';
 import UserCard from '../components/UserCard';
+import InviteModal from '../components/InviteModal';
+import { useAuth } from '../context/UserContext';
 
 export default function Explore() {
+  const { user } = useAuth();
   const [selectedTechStack, setSelectedTechStack] = useState('All Tech Stacks');
   const [selectedLevel, setSelectedLevel] = useState('All Levels');
   const [selectedAvailability, setSelectedAvailability] = useState('All Availability');
   const [searchQuery, setSearchQuery] = useState('');
   const [allUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  // Invite modal state
+  const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [selectedUserName, setSelectedUserName] = useState('');
 
   useEffect(() => {
     const apiBase = process.env.REACT_APP_API_URL || '';
@@ -84,6 +92,26 @@ export default function Explore() {
     "hover:border-gray-500/30",
     "hover:border-red-500/30",
   ];
+
+  // Handle invite button click
+  const handleInviteClick = (userId, userName) => {
+    setSelectedUserId(userId);
+    setSelectedUserName(userName);
+    setIsInviteModalOpen(true);
+  };
+
+  // Handle invite modal close
+  const handleInviteModalClose = () => {
+    setIsInviteModalOpen(false);
+    setSelectedUserId(null);
+    setSelectedUserName('');
+  };
+
+  // Handle invite sent (optional callback)
+  const handleInviteSent = (userId, projectId) => {
+    // You can add any UI updates here if needed
+    console.log(`Invite sent to user ${userId} for project ${projectId}`);
+  };
 
   return (
     <div className="min-h-screen bg-black text-white px-6 pb-20">
@@ -206,12 +234,25 @@ export default function Explore() {
           ) : (
             filteredDevelopers.map((developer, idx) => (
               <div key={developer.id || developer.name + idx} className={`transition-all group relative overflow-hidden ${borderColors[idx % borderColors.length]}`}>
-                <UserCard {...developer} />
+                <UserCard 
+                  {...developer} 
+                  onInviteClick={handleInviteClick}
+                  isCurrentUser={user?.uid === developer.id}
+                />
               </div>
             ))
           )}
         </div>
       </div>
+
+      {/* Invite Modal */}
+      <InviteModal
+        isOpen={isInviteModalOpen}
+        onClose={handleInviteModalClose}
+        selectedUserId={selectedUserId}
+        receiverName={selectedUserName}
+        onInviteSent={handleInviteSent}
+      />
     </div>
   );
 }
